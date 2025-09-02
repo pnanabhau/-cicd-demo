@@ -1,0 +1,14 @@
+/root/cicd-demo/HelloWorldApp/bin/Debug/net8.0/HelloWorldApp
+/root/cicd-demo/HelloWorldApp/bin/Debug/net8.0/HelloWorldApp.deps.json
+/root/cicd-demo/HelloWorldApp/bin/Debug/net8.0/HelloWorldApp.runtimeconfig.json
+/root/cicd-demo/HelloWorldApp/bin/Debug/net8.0/HelloWorldApp.dll
+/root/cicd-demo/HelloWorldApp/bin/Debug/net8.0/HelloWorldApp.pdb
+/root/cicd-demo/HelloWorldApp/obj/Debug/net8.0/HelloWorldApp.GeneratedMSBuildEditorConfig.editorconfig
+/root/cicd-demo/HelloWorldApp/obj/Debug/net8.0/HelloWorldApp.AssemblyInfoInputs.cache
+/root/cicd-demo/HelloWorldApp/obj/Debug/net8.0/HelloWorldApp.AssemblyInfo.cs
+/root/cicd-demo/HelloWorldApp/obj/Debug/net8.0/HelloWorldApp.csproj.CoreCompileInputs.cache
+/root/cicd-demo/HelloWorldApp/obj/Debug/net8.0/HelloWorldApp.dll
+/root/cicd-demo/HelloWorldApp/obj/Debug/net8.0/refint/HelloWorldApp.dll
+/root/cicd-demo/HelloWorldApp/obj/Debug/net8.0/HelloWorldApp.pdb
+/root/cicd-demo/HelloWorldApp/obj/Debug/net8.0/HelloWorldApp.genruntimeconfig.cache
+/root/cicd-demo/HelloWorldApp/obj/Debug/net8.0/ref/HelloWorldApp.dll
