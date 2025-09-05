@@ -36,12 +36,13 @@ stages:
         projects: 'HelloWorldApp.csproj'
         arguments: '--configuration $(buildConfiguration)'
 
-    # Step 4: Publish project (console app)
+    # Step 4: Publish project (console app, not web)
     - task: DotNetCoreCLI@2
       displayName: 'Publish .NET Project'
       inputs:
         command: 'publish'
         projects: 'HelloWorldApp.csproj'
+        publishWebProjects: false
         arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
     # Step 5: Publish artifacts
