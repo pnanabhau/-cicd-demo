@@ -22,7 +22,7 @@ stages:
         version: '8.0.x'
 
     # Step 2: Prepare SonarCloud Analysis
-    - task: SonarCloudPrepare@1
+    - task: SonarCloudPrepare@3
       inputs:
         SonarCloud: 'SonarCloude'           # service connection name from DevOps
         organization: 'your-org-key'        # org key from SonarCloud portal
@@ -46,12 +46,12 @@ stages:
         arguments: '--configuration $(buildConfiguration)'
 
     # Step 5: Run SonarCloud Analysis
-    - task: SonarCloudAnalyze@1
+    - task: SonarCloudPrepare@3
       inputs:
         jdkversion: 'JAVA_HOME_17_X64'
 
     # Step 6: Publish SonarCloud Quality Gate
-    - task: SonarCloudPublish@1
+    - task: SonarCloudPrepare@3
       inputs:
         pollingTimeoutSec: '300'
 
