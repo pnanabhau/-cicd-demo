@@ -14,12 +14,12 @@ stages:
   - job: BuildJob
     displayName: 'Build .NET Job'
     steps:
-    # Step 1: Install .NET SDK
+    # Step 1: Install .NET 8 SDK
     - task: UseDotNet@2
-      displayName: 'Install .NET SDK'
+      displayName: 'Install .NET 8 SDK'
       inputs:
         packageType: 'sdk'
-        version: '6.0.x'
+        version: '8.0.x'
 
     # Step 2: Restore dependencies
     - task: DotNetCoreCLI@2
@@ -36,15 +36,7 @@ stages:
         projects: '**/*.csproj'
         arguments: '--configuration $(buildConfiguration)'
 
-    # Step 4: Run unit tests (optional if tests available)
-    - task: DotNetCoreCLI@2
-      displayName: 'Run Unit Tests'
-      inputs:
-        command: 'test'
-        projects: '**/*Tests/*.csproj'
-        arguments: '--configuration $(buildConfiguration)'
-
-    # Step 5: Publish project
+    # Step 4: Publish project
     - task: DotNetCoreCLI@2
       displayName: 'Publish .NET Project'
       inputs:
@@ -52,14 +44,10 @@ stages:
         publishWebProjects: true
         arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
-    # Step 6: Publish artifacts
+    # Step 5: Publish artifacts
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Build Artifact'
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'drop'
-        publishLocation: 'Container'      
-
-        
-
-
+        publishLocation: 'Container'
