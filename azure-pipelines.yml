@@ -36,12 +36,12 @@ stages:
         projects: '**/*.csproj'
         arguments: '--configuration $(buildConfiguration)'
 
-    # Step 4: Publish project
+    # Step 4: Publish console app
     - task: DotNetCoreCLI@2
       displayName: 'Publish .NET Project'
       inputs:
         command: 'publish'
-        publishWebProjects: true
+        projects: '**/*.csproj'
         arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
     # Step 5: Publish artifacts
