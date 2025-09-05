@@ -26,7 +26,7 @@ stages:
       inputs:
         SonarCloud: 'SonarCloude'           # service connection name from DevOps
         organization: 'your-org-key'        # org key from SonarCloud portal
-        scannerMode: 'MSBuild'
+        scannerMode: 'dotnet'
         projectKey: 'pnanabhau_-cicd-demo'  # project key from SonarCloud
         projectName: '-cicd-demo'           # project name from SonarCloud
 
