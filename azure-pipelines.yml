@@ -1,11 +1,65 @@
-trigger:main
-vimmage:ubento letest 
-variable:
-build configuretion:relese
+trigger:
+- main   
+
+pool:
+  vmImage: 'ubuntu-latest'  
+
+variables:
+  buildConfiguration: 'Release'   
+
 stages:
-  - stage: Build
-    displayName: 'Build .NET App' 
-    job:build job
-    display Name:build job.Net App
+- stage: Build
+  displayName: 'Build .NET App'
+  jobs:                        
+  - job: BuildJob
+    displayName: 'Build .NET Job'
     steps:
-    
+    # Step 1: Install .NET SDK
+    - task: UseDotNet@2
+      displayName: 'Install .NET SDK'
+      inputs:
+        packageType: 'sdk'
+        version: '6.0.x'
+
+    # Step 2: Restore dependencies
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore Dependencies'
+      inputs:
+        command: 'restore'
+        projects: '**/*.csproj'
+
+    # Step 3: Build project
+    - task: DotNetCoreCLI@2
+      displayName: 'Build .NET Project'
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+
+    # Step 4: Run unit tests (optional if tests available)
+    - task: DotNetCoreCLI@2
+      displayName: 'Run Unit Tests'
+      inputs:
+        command: 'test'
+        projects: '**/*Tests/*.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+
+    # Step 5: Publish project
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish .NET Project'
+      inputs:
+        command: 'publish'
+        publishWebProjects: true
+        arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+
+    # Step 6: Publish artifacts
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Build Artifact'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'      
+
+        
+
+
