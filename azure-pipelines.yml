@@ -1,0 +1,11 @@
+trigger:main
+vimmage:ubento letest 
+variable:
+build configuretion:relese
+stages:
+  - stage: Build
+    displayName: 'Build .NET App' 
+    job:build job
+    display Name:build job.Net App
+    steps:
+    
