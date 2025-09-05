@@ -26,22 +26,22 @@ stages:
       displayName: 'Restore Dependencies'
       inputs:
         command: 'restore'
-        projects: '**/*.csproj'
+        projects: 'HelloWorldApp.csproj'
 
     # Step 3: Build project
     - task: DotNetCoreCLI@2
       displayName: 'Build .NET Project'
       inputs:
         command: 'build'
-        projects: '**/*.csproj'
+        projects: 'HelloWorldApp.csproj'
         arguments: '--configuration $(buildConfiguration)'
 
-    # Step 4: Publish console app
+    # Step 4: Publish project (console app)
     - task: DotNetCoreCLI@2
       displayName: 'Publish .NET Project'
       inputs:
         command: 'publish'
-        projects: '**/*.csproj'
+        projects: 'HelloWorldApp.csproj'
         arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
     # Step 5: Publish artifacts
