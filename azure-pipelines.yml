@@ -1,11 +1,11 @@
 trigger:
-- main   
+- main
 
 pool:
-  vmImage: 'ubuntu-latest'  
+  vmImage: 'ubuntu-latest'
 
 variables:
-  buildConfiguration: 'Release'   
+  buildConfiguration: 'Release'
 
 stages:
 - stage: Build
@@ -21,14 +21,23 @@ stages:
         packageType: 'sdk'
         version: '8.0.x'
 
-    # Step 2: Restore dependencies
+    # Step 2: Prepare SonarCloud Analysis
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'SonarCloude'           # service connection name from DevOps
+        organization: 'your-org-key'        # org key from SonarCloud portal
+        scannerMode: 'MSBuild'
+        projectKey: 'pnanabhau_-cicd-demo'  # project key from SonarCloud
+        projectName: '-cicd-demo'           # project name from SonarCloud
+
+    # Step 3: Restore dependencies
     - task: DotNetCoreCLI@2
       displayName: 'Restore Dependencies'
       inputs:
         command: 'restore'
         projects: 'HelloWorldApp.csproj'
 
-    # Step 3: Build project
+    # Step 4: Build project
     - task: DotNetCoreCLI@2
       displayName: 'Build .NET Project'
       inputs:
@@ -36,7 +45,17 @@ stages:
         projects: 'HelloWorldApp.csproj'
         arguments: '--configuration $(buildConfiguration)'
 
-    # Step 4: Publish project (console app, not web)
+    # Step 5: Run SonarCloud Analysis
+    - task: SonarCloudAnalyze@1
+      inputs:
+        jdkversion: 'JAVA_HOME_17_X64'
+
+    # Step 6: Publish SonarCloud Quality Gate
+    - task: SonarCloudPublish@1
+      inputs:
+        pollingTimeoutSec: '300'
+
+    # Step 7: Publish project (console app)
     - task: DotNetCoreCLI@2
       displayName: 'Publish .NET Project'
       inputs:
@@ -45,7 +64,7 @@ stages:
         publishWebProjects: false
         arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
-    # Step 5: Publish artifacts
+    # Step 8: Publish artifacts
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Build Artifact'
       inputs:
